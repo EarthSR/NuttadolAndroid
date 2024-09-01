@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NuttadolAndroid</string>
+    <string name="root_url">http://192.168.1.101:3000</string>
+    <string name="fetchdata">/cars</string>
+    <string name="insertdata">/add/cars</string>
+    <string name="string_car_image">Car Image Description</string>
+    <string name="img">/uploads/</string>
+</resources>
