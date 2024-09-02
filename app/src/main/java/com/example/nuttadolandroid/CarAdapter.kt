@@ -1,3 +1,4 @@
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,8 +11,12 @@ import com.example.nuttadolandroid.databinding.ItemCarBinding
 import com.example.nuttadolandroid.R
 
 // Extension function to generate image URL
-fun String?.toImageUrl(): String? {
-    return this?.takeIf { !it.contains("*") }?.let { "http://192.168.1.101:3000/uploads/$it" }
+fun String?.toImageUrl(context: Context): String? {
+    return this?.takeIf { !it.contains("*") }?.let {
+        val rootUrl = context.getString(R.string.root_url)
+        val imgPath = context.getString(R.string.img)
+        "$rootUrl$imgPath$it"
+    }
 }
 
 // Adapter for displaying cars
@@ -29,7 +34,7 @@ class CarAdapter(private var cars: List<Car>) : RecyclerView.Adapter<CarAdapter.
             binding.textNumberOfDoors.text = "Number of Doors: ${car.NumberOfDoors}"
             binding.textNumberOfSeats.text = "Number of Seats: ${car.NumberOfSeats}"
 
-            val imageUrl = car.CarImage.toImageUrl()
+            val imageUrl = car.CarImage.toImageUrl(binding.root.context)
             Log.d("CarAdapter", "Loading image from URL: $imageUrl")
 
             Glide.with(binding.carImage.context)
